@@ -25,10 +25,6 @@ jobs:
         token: ${{ secrets.ADMIN_TOKEN }}
         repository: ShriniLearns/Repo-2
         event-type: trigger-workflow2
-        client-payload: |
-          {
-            "artifact_url": "${{ steps.upload.outputs.artifact_url }}"
-          }
           
     - name: Wait for Workflow2 to complete
       id: wait
