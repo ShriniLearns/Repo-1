@@ -25,6 +25,7 @@ jobs:
         token: ${{ secrets.ADMIN_TOKEN }}
         repository: ShriniLearns/Repo-2
         event-type: trigger-workflow2
+        client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
           
     - name: Wait for Workflow2 to complete
       id: wait
