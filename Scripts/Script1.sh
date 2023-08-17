@@ -15,9 +15,10 @@ wait_in_seconds() {
 
 trigger_workflow2() {
   echo "Triggering Workflow2"
-  curl -X POST \
+  curl -L \
+    -X POST \
     -H "Accept: application/vnd.github.v3+json" \
-    -H "Authorization: Bearer $REPO_TOKEN" \
+    -H "Authorization: Bearer {{ secrets.ADMIN_TOKEN }}" \
     -H "X-GitHub-Api-Version: 2022-11-28" \
     "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/actions/workflows/workflow2.yml/dispatches" \
     -d '{"ref":"main"}'
