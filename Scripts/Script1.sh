@@ -13,6 +13,32 @@ wait_in_seconds() {
   sleep 20
 }
 
+get_workflow_id() {
+  curl -L \
+    -H "Accept: application/vnd.github+json" \
+    -H "Authorization: Bearer $REPO_TOKEN" \
+    -H "X-GitHub-Api-Version: 2022-11-28" \
+    https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/actions/runs |
+    jq -r '.workflow_runs[0] | .id'
+}
+get_workflow_conclusion() {
+  curl -L \
+    -H "Accept: application/vnd.github+json" \
+    -H "Authorization: Bearer $REPO_TOKEN" \
+    -H "X-GitHub-Api-Version: 2022-11-28" \
+    https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/actions/runs/$1 |
+    jq -r '.conclusion'
+}
+
+get_workflow_status() {
+  curl -L \
+    -H "Accept: application/vnd.github+json" \
+    -H "Authorization: Bearer $REPO_TOKEN" \
+    -H "X-GitHub-Api-Version: 2022-11-28" \
+    https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/actions/runs/$1 |
+    jq -r '.status'
+}
+
 upload_artifacts(){
   echo "Report Name is : $1"
   curl -L \
@@ -20,7 +46,7 @@ upload_artifacts(){
   -H "Accept: application/vnd.github+json" \
   -H "Authorization: Bearer $REPO_TOKEN"\
   -H "X-GitHub-Api-Version: 2022-11-28" \
-https://api.github.com/repos/ShriniLearns/GHA-GitHubActions/actions/workflows/upload_artifact.yml/dispatches \
+https://api.github.com/repos/$REPO_OWNER/GHA-GitHubActions/actions/workflows/upload_artifact.yml/dispatches \
   -d '{"ref":"main","inputs":{"reportName":"'"$1"'"}}'
 }
 
