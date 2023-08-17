@@ -13,6 +13,16 @@ wait_in_seconds() {
   sleep 20
 }
 
+trigger_workflow2() {
+  echo "Triggering Workflow2"
+  curl -X POST \
+    -H "Accept: application/vnd.github.v3+json" \
+    -H "Authorization: Bearer $REPO_TOKEN" \
+    -H "Content-Type: application/json" \
+    -d "{\"event_type\": \"trigger-workflow2\", \"client_payload\": {}}" \
+    "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/dispatches"
+}
+
 get_workflow_id() {
   curl -L \
     -H "Accept: application/vnd.github+json" \
@@ -39,35 +49,39 @@ get_workflow_status() {
     jq -r '.status'
 }
 
-upload_artifacts(){
-  echo "Report Name is : $1"
-  curl -L \
-  -X POST \
-  -H "Accept: application/vnd.github+json" \
-  -H "Authorization: Bearer $REPO_TOKEN"\
-  -H "X-GitHub-Api-Version: 2022-11-28" \
-https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/actions/workflows/upload_artifact.yml/dispatches \
-  -d '{"ref":"main","inputs":{"reportName":"'"$1"'"}}'
-}
+Print_Message
+wait_in_seconds
+trigger_workflow2
 
-wait_for_work_flow_to_complete() {
-  workflow_conclusion=null
-  workflow_status=null
-  while [[ "$workflow_conclusion" == "null" && "$workflow_status" != "completed" ]]; do
-    workflow_id=$(get_workflow_id)
-    workflow_conclusion=$(get_workflow_conclusion "$workflow_id")
-    workflow_status=$(get_workflow_status "$workflow_id")
-    echo "Work flow id is : $workflow_id"
-    echo "Checking the work flow conclusion is : $workflow_conclusion"
-    echo "Checking the work flow status is : $workflow_status"
-    wait_in_seconds "20"
-  done
+# upload_artifacts(){
+#   echo "Report Name is : $1"
+#   curl -L \
+#   -X POST \
+#   -H "Accept: application/vnd.github+json" \
+#   -H "Authorization: Bearer $REPO_TOKEN"\
+#   -H "X-GitHub-Api-Version: 2022-11-28" \
+# https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/actions/workflows/upload_artifact.yml/dispatches \
+#   -d '{"ref":"main","inputs":{"reportName":"'"$1"'"}}'
+# }
 
-  if [[ "$workflow_conclusion" == "success" && "$workflow_status" == "completed" ]]; then
-    echo "The workflow execution is $workflow_conclusion & promoting the build to QA."
-  else
-    echo "Work flow is not finished and the conclusion is : $workflow_conclusion"
-  fi
-}
+# wait_for_work_flow_to_complete() {
+#   workflow_conclusion=null
+#   workflow_status=null
+#   while [[ "$workflow_conclusion" == "null" && "$workflow_status" != "completed" ]]; do
+#     workflow_id=$(get_workflow_id)
+#     workflow_conclusion=$(get_workflow_conclusion "$workflow_id")
+#     workflow_status=$(get_workflow_status "$workflow_id")
+#     echo "Work flow id is : $workflow_id"
+#     echo "Checking the work flow conclusion is : $workflow_conclusion"
+#     echo "Checking the work flow status is : $workflow_status"
+#     wait_in_seconds "20"
+#   done
 
-wait_for_work_flow_to_complete
+#   if [[ "$workflow_conclusion" == "success" && "$workflow_status" == "completed" ]]; then
+#     echo "The workflow execution is $workflow_conclusion & promoting the build to QA."
+#   else
+#     echo "Work flow is not finished and the conclusion is : $workflow_conclusion"
+#   fi
+# }
+
+# wait_for_work_flow_to_complete
