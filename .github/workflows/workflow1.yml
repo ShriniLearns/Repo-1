@@ -12,10 +12,10 @@ jobs:
 
     - name: Run script1.sh
       env:
-        owner-name: ShriniLearns
-        repo-name: Repo-1
+        REPO_OWNER: ShriniLearns
+        REPO_NAME: Repo-1
         REPO_ACCESS_TOKEN: ${{ secrets.ADMIN_TOKEN }}
       run: |
         chmod +x ./Scripts/Script1.sh
-        ./Scripts/Script1.sh  "$owner-name" "$repo-name" "${{ env.REPO_ACCESS_TOKEN }}"
+        ./Scripts/Script1.sh  "$REPO_OWNER" "$REPO_NAME" "${{ env.REPO_ACCESS_TOKEN }}"
       
