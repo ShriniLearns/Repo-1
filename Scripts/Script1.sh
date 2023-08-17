@@ -18,7 +18,7 @@ trigger_workflow2() {
   curl -L \
     -X POST \
     -H "Accept: application/vnd.github.v3+json" \
-    -H "Authorization: Bearer $REPO_TOKEN" \
+    -H "Authorization: Bearer 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" \
     -H "X-GitHub-Api-Version: 2022-11-28" \
     "https://api.github.com/repos/ShriniLearns/Repo-1/actions/workflows/workflow2.yml/dispatches" \
     -d '{"ref":"main"}'
