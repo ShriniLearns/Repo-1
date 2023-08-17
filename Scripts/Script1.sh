@@ -1,8 +1,8 @@
 set -e
 
-REPO_OWNER= "$1"
-REPO_NAME= "$2"
-REPO_TOKEN= "$3"
+REPO_OWNER=$1
+REPO_NAME=$2
+REPO_TOKEN=$3
 
 Print_Message(){
 echo "BAT Cycle is running"
