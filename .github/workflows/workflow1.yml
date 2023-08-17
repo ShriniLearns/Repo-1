@@ -10,32 +10,4 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Display HTML file
-      run: cat ShriniLearns/Repo-1/Demo.html
-    
-    # - name: Upload artifact
-    #   uses: actions/upload-artifact@v2
-    #   with:
-    #     name: my-html-artifact
-    #     path: artifact.html
 
-    # - name: Trigger Workflow2
-    #   uses: peter-evans/repository-dispatch@v1
-    #   with:
-    #     token: ${{ secrets.ADMIN_TOKEN }}
-    #     repository: ShriniLearns/Repo-2
-    #     event-type: trigger-workflow2
-    #     client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
-          
-    # - name: Wait for Workflow2 to complete
-    #   id: wait
-    #   run: |
-    #     echo "Waiting for Workflow2 to complete..."
-    #     while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' https://api.github.com/repos/repository2-owner/repository2-name/actions/runs/${{ github.event.client_payload.workflow_run_id }}/jobs)" != "[]\"" ]]; do
-    #       sleep 30
-    #     done
-    #     echo "Workflow2 completed."
-
-    # - name: Workflow2 Status
-    #   run: |
-    #     echo "Workflow2 Status: ${{ steps.wait.outputs.workflow2_status }}"
