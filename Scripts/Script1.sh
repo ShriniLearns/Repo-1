@@ -15,6 +15,8 @@ trigger_workflow2() {
     -H "Accept: application/vnd.github+json" \
     -H "Authorization: Bearer $REPO_TTOKEN" \
     -H "X-GitHub-Api-Version: 2022-11-28" \
+    -H "Content-Type: application/json" \
+    -d "{\"event_type\": \"trigger-workflow2\", \"client_payload\": {}}" \
     "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/actions/workflows/workflow2.yml/dispatches" \
     -d '{"ref":"main"}'
 }
