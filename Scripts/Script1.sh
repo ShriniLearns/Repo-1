@@ -1,8 +1,8 @@
 set -e
 
-# REPO_OWNER= $ShriniLearns
-# REPO_NAME= $Repo-1
-REPO_TOKEN= $ADMIN_TOKEN
+REPO_OWNER= $1
+REPO_NAME= $2
+REPO_TOKEN= $3
 
 Print_Message(){
 echo "BAT Cycle is running"
@@ -20,7 +20,7 @@ trigger_workflow2() {
     -H "Accept: application/vnd.github.v3+json" \
     -H "Authorization: Bearer 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" \
     -H "X-GitHub-Api-Version: 2022-11-28" \
-    "https://api.github.com/repos/ShriniLearns/Repo-1/actions/workflows/workflow2.yml/dispatches" \
+    "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/actions/workflows/workflow2.yml/dispatches" \
     -d '{"ref":"main"}'
 }
 
@@ -29,7 +29,7 @@ get_workflow_id() {
     -H "Accept: application/vnd.github+json" \
     -H "Authorization: Bearer $REPO_TOKEN" \
     -H "X-GitHub-Api-Version: 2022-11-28" \
-    https://api.github.com/repos/ShriniLearns/Repo-1/actions/runs |
+    https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/actions/runs |
     jq -r '.workflow_runs[0] | .id'
 }
 get_workflow_conclusion() {
@@ -37,7 +37,7 @@ get_workflow_conclusion() {
     -H "Accept: application/vnd.github+json" \
     -H "Authorization: Bearer $REPO_TOKEN" \
     -H "X-GitHub-Api-Version: 2022-11-28" \
-    https://api.github.com/repos/ShriniLearns/Repo-1/actions/runs/$1 |
+    https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/actions/runs/$1 |
     jq -r '.conclusion'
 }
 
@@ -46,7 +46,7 @@ get_workflow_status() {
     -H "Accept: application/vnd.github+json" \
     -H "Authorization: Bearer $REPO_TOKEN" \
     -H "X-GitHub-Api-Version: 2022-11-28" \
-    https://api.github.com/repos/ShriniLearns/Repo-1/actions/runs/$1 |
+    https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/actions/runs/$1 |
     jq -r '.status'
 }
 
