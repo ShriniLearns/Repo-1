@@ -1,8 +1,8 @@
 set -e
 
-REPO_OWNER= "$ShriniLearns"
-REPO_NAME= "$Repo-1"
-REPO_TOKEN= "$ADMIN_TOKEN"
+REPO_OWNER= $ShriniLearns
+REPO_NAME= $Repo-1
+REPO_TOKEN= $ADMIN_TOKEN
 
 Print_Message(){
 echo "BAT Cycle is running"
