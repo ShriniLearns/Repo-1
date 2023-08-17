@@ -1,4 +1,3 @@
-!/bin/bash
 set -e
 
 REPO_OWNER= $1
