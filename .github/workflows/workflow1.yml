@@ -9,9 +9,6 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
-      
-    - name: Generate HTML file
-      run: echo "<html><body>This is an HTML artifact</body></html>" > artifact.html
 
     - name: Upload artifact
       uses: actions/upload-artifact@v2
@@ -19,7 +16,7 @@ jobs:
         name: my-html-artifact
         path: artifact.html
 
-    - name: Trigger Workflow2 in Repo-2
+    - name: Trigger Workflow2
       uses: peter-evans/repository-dispatch@v1
       with:
         token: ${{ secrets.ADMIN_TOKEN }}
