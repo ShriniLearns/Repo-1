@@ -18,9 +18,9 @@ trigger_workflow2() {
   curl -X POST \
     -H "Accept: application/vnd.github.v3+json" \
     -H "Authorization: Bearer $REPO_TOKEN" \
-    -H "Content-Type: application/json" \
-    -d "{\"event_type\": \"trigger-workflow2\", \"client_payload\": {}}" \
-    "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/dispatches"
+    -H "X-GitHub-Api-Version: 2022-11-28" \
+    "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/actions/workflows/workflow2.yml/dispatches" \
+    -d '{"ref":"main"}'
 }
 
 get_workflow_id() {
