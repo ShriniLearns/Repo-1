@@ -8,11 +8,6 @@ Print_Message(){
 echo "BAT Cycle is running"
 }
 
-wait_in_seconds() {
-  echo "Sleeping for "20" seconds"
-  sleep 20
-}
-
 trigger_workflow2() {
   echo "Triggering Workflow2"
   curl -L \
@@ -22,6 +17,11 @@ trigger_workflow2() {
     -H "X-GitHub-Api-Version: 2022-11-28" \
     "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/actions/workflows/workflow2.yml/dispatches" \
     -d '{"ref":"main"}'
+}
+
+wait_in_seconds() {
+  echo "Sleeping for "20" seconds"
+  sleep 20
 }
 
 get_workflow_id() {
